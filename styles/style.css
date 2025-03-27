@@ -34,10 +34,10 @@
 .button {
   position: relative;
   background-color: var(--theme-background-color);
-  font-family: var(--font-accent), sans-serif;
+  font-family: var(--font-accent), fantasy;
   font-size: 14px;
   cursor: pointer;
-  transition: box-shadow .1s;
+  transition: box-shadow .3s;
 }
 
 .button:focus {
@@ -49,24 +49,6 @@
 }
 
 /* ========================= HEART-SVG ==================================== */
-
-@keyframes scale {
-  from {
-    scale: 1;
-  }
-  to {
-    scale: 1.25;
-  }
-}
-
-@keyframes opacity {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
 
 .sparks {
   opacity: 0;
@@ -81,19 +63,19 @@
 }
 
 .core {
-  transition: fill .3s .03s;
+  transition: fill .3s .03s linear;
 }
 
 .like-icon:hover .core {
-  transition: fill .3s;
+  transition: fill .3s ease linear;
 }
 
 .main-body {
-  transition: fill .3s 0s;
+  transition: fill .3s 0s linear;
 }
 
 .like-icon:hover .main-body {
-  transition: fill .3s .05s;
+  transition: fill .3s .05s linear;
 }
 
 .like-icon:active .core, .like-icon:active .main-body {
@@ -101,11 +83,11 @@
 }
 
 .like-icon:active .core {
-  transition: fill .3s;
+  transition: fill .3s linear;
 }
 
 .like-icon:active .main-body {
-  transition: fill .3s .05s;
+  transition: fill .3s .05s linear;
 }
 
 .like-icon.is-liked .core, .like-icon.is-liked .main-body, .like-icon.is-liked .contour {
@@ -113,19 +95,19 @@
 }
 
 .like-icon.is-liked .core {
-  transition: fill .3s;
+  transition: fill .3s linear;
 }
 
 .like-icon.is-liked .main-body {
-  transition: fill .3s .05s;
+  transition: fill .3s .05s linear;
 }
 
 .like-icon .contour {
-  transition: fill .1s;
+  transition: fill .1s linear;
 }
 
 .like-icon.is-liked .contour {
-transition: fill .3s .06s;
+transition: fill .3s .06s linear;
 }
 
 .like-icon.is-liked .heart {
@@ -144,7 +126,7 @@ transition: fill .3s .06s;
   margin-block: 102px;
   padding-block: clamp(7.5rem, 7.3239rem + 0.7512vw, 8rem);   /* от 120 до 128 px, при ширине экрана от 375 до 1440px */
   background-color: var(--theme-background-color);
-  font-family: var(--font-accent);
+  font-family: var(--font-accent), fantasy;
   text-align: center;
 }
 
@@ -158,6 +140,7 @@ transition: fill .3s .06s;
 
 .header__paragraph {
   font-size: clamp(0.875rem, 0.6769rem + 0.8451vw, 1.4375rem);
+  text-transform: uppercase;
 }
 
 /* ========================== MAIN =========================================== */
@@ -182,12 +165,17 @@ transition: fill .3s .06s;
 }
 
 .card__image-box {
+  inline-size: 100%;
+  aspect-ratio: 1;
   position: relative;
+  border-block: 2px solid var(--theme-main-color);
 }
 
 .card__image {
+  position: absolute;
+  /* inset: 0 0 0 0; */
+  block-size: 100%;
   inline-size: 100%;
-  aspect-ratio: 1;
   background-color: transparent;
 }
 
@@ -196,7 +184,7 @@ transition: fill .3s .06s;
   font-size: 14px;
   inset-inline-end: clamp(0.6875rem, 0.3794rem + 1.3146vw, 1.5625rem);
   inset-block-start: 25px;
-  font-family: var(--font-accent), sans-serif;
+  font-family: var(--font-accent), fantasy;
   mix-blend-mode: hard-light;
   opacity: .5;
   text-shadow: 1px 1px var(--theme-background-color), -1px -1px var(--theme-background-color), -1px 1px var(--theme-background-color), 1px -1px var(--theme-background-color);
@@ -204,7 +192,8 @@ transition: fill .3s .06s;
 
 @supports (-webkit-text-stroke: .5px var(--theme-background-color)) {
   .card__label {
-    -webkit-text-stroke: .2px var(--theme-background-color);
+    text-shadow: none;
+    -webkit-text-stroke: .8px var(--theme-background-color);
   }
 }
 
@@ -212,19 +201,23 @@ transition: fill .3s .06s;
   padding: 25px;
 }
 
-.card__remembers-list :not(:last-child) .card__text {
+.card__remembers .card__text:not(:last-child) {
   margin-bottom: 27px;
 }
 
-.card__remembers-list :last-child .card__text {
+.card__remembers .card__text:last-child {
   margin-bottom: 25px;
+}
+
+.card__text {
+  line-height: 21px;
 }
 
 .card__buttons {
   display: flex;
   justify-content: end;
   align-items: center;
-  gap: 12px;
+  gap: 6px;
 }
 
 .card__icon-button {
@@ -291,7 +284,6 @@ body:has(.dialog[open]) {
 .dialog {
   padding: 31px;
   max-inline-size: 357px;
-  min-block-size: 195px;
 }
 
 .dialog[open] {
@@ -300,6 +292,7 @@ body:has(.dialog[open]) {
   gap: 30px;
   grid-template-columns: min-content 1fr;
   grid-template-rows: 1fr min-content;
+  border: 2px solid var(--theme-main-color);
 }
 
 .dialog[open]::backdrop {
@@ -307,7 +300,7 @@ body:has(.dialog[open]) {
 }
 
 .dialog__title {
-  font-family: var(--font-accent), sans-serif;
+  font-family: var(--font-accent), fantasy;
   font-size: 14px;
   text-transform: uppercase;
   line-height: 1.5;
